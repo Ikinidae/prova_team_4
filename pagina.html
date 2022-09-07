@@ -47,6 +47,21 @@
             console.log(result);
             if (result.results) {
                 moveMap(result.results[0].position)
+
+                // var marker = '';
+
+                // if (marker = '') {
+                    
+                    var marker = new tt.Marker()
+                        .setLngLat(result.results[0].position)
+                        .addTo(map);
+                // } else{
+                    
+                //     var marker = new tt.Marker()
+                //         .remove(marker.map)
+                //         .setLngLat(result.results[0].position)
+                //         .addTo(map);
+                // }
             }
         };
 
@@ -55,6 +70,8 @@
             tt.services.fuzzySearch({
                 key: API_KEY,
                 query: document.getElementById("query").value,
+                // boundingBox: map.getBounds(),
+                
             }).then(handleResults);
         }
 
