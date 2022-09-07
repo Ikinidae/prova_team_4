@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="maps.css">
 </head>
 <body>
-    <input type="text" value="" id="query">
+    <input type="text" id="query" value="">
     <button onclick="search()">SEARCH</button>
     <div id="map-div"></div>
 
@@ -36,18 +36,26 @@
             zoom: 12
         });
 
-        var handleResults = function search(result) {
+        var moveMap = function(lnglat) {
+            map.flyTo({
+                center: lnglat,
+                zoom: 14
+            })
+        }
+
+        var handleResults = function(result) {
             console.log(result);
+            if (result.results) {
+                moveMap(result.results[0].position)
+            }
         };
 
         var search = function(){
 
-            debugger;
             tt.services.fuzzySearch({
                 key: API_KEY,
                 query: document.getElementById("query").value,
-                // query: "Amsterdam",
-            }).then(handleResults());
+            }).then(handleResults);
         }
 
 
